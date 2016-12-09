@@ -40,6 +40,9 @@ class PixieDustConvFlightPredictPluginMeta(DisplayHandlerMeta):
 
     return menus
 
+  def newDisplayHandler(self,options,entity):
+    return PixieDustConvFlightPredict(options,entity)
+
 @PixiedustDisplay()
 class PixieDustFlightPredictPluginMeta(DisplayHandlerMeta):
   def createCategories(self):

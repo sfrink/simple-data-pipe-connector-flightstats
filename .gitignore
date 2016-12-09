@@ -1,3 +1,9 @@
+# Emacs
+*~
+
+# Tern
+.tern*
+
 # Logs
 logs
 *.log

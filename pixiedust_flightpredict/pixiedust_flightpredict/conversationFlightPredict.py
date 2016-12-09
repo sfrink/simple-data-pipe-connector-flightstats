@@ -15,6 +15,6 @@
 # -------------------------------------------------------------------------------
 from pixiedust.display.display import *
 
-class PixieDustFlightPredict(Display):
+class PixieDustConvFlightPredict(Display):
   def doRender(self, handlerId):
     self._addHTMLTemplate("convFlights.html")
