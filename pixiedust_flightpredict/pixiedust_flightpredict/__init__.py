@@ -17,6 +17,7 @@
 from pixiedust.display.display import *
 from pixiedust.display import *
 from .flightPredict import *
+from .conversationFlightPredict import *
 import pixiedust
 import pixiedust.utils.dataFrameMisc as dataFrameMisc
 from pixiedust.utils.shellAccess import ShellAccess
@@ -27,6 +28,17 @@ from six import iteritems, with_metaclass
 
 myLogger = pixiedust.getLogger(__name__)
 initialAirport = "BOS"
+
+@PixiedustDisplay()
+class PixieDustConvFlightPredictPluginMeta(DisplayHandlerMeta):
+  @addId
+  def getMenuInfo(self,entity):
+    if entity==self.__class__:
+      menus = [{"id": "convflightpredict"}]
+    else
+      menus = []
+
+    return menus
 
 @PixiedustDisplay()
 class PixieDustFlightPredictPluginMeta(DisplayHandlerMeta):
@@ -92,6 +104,9 @@ def flightPredict(depAir="BOS"):
   global initialAirport
   initialAirport = depAir
   display(PixieDustFlightPredictPluginMeta)
+
+def conversationFlightPredict():
+  display(PixieDustConvFlightPredictPluginMeta)
 
 def displayMapResults():
   display("fp_map_results")
