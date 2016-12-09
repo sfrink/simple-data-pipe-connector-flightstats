@@ -31,24 +31,25 @@ var Api = (function() {
   function sendRequest(text, context) {
     // Build request payload
     var payloadToWatson = {};
-    if (text) {
-      payloadToWatson.input = {
-        text: text
-      };
-    }
-    if (context) {
-      payloadToWatson.context = context;
-    }
+
+    text = text || '';
+
+    payloadToWatson.input = {
+      text: text
+    };
+
+    payloadToWatson.context = context || {};
 
     var $$pixiedust_command = "from pixiedust_flightpredict.watsonMessageAPI import *" +
-      //"\nprint(getResponse('" + text + "'))";
-      "\nprint(getResponseTest())";
+          "\nprint(getResponse(" + JSON.stringify(payloadToWatson) + "))";
 
     {% call(results) commons.ipython_execute("$$pixiedust_command", prefix) %}
       {% if results["error"] %}
         alert('error!');
       {% else %}
-        Api.setResponsePayload({{results}});
+        {% if results != '' %}
+          Api.setResponsePayload({{results}});
+        {% endif %}
       {% endif %}
     {% endcall %}
   }

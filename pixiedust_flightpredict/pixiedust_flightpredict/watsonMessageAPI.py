@@ -1,66 +1,19 @@
-from watson_developer_cloud import conversation_v1
+from watson_developer_cloud import ConversationV1
+import pixiedust
+import json
 
-json = """
-{
-  "intents": [
-    {
-      "intent": "destination",
-      "confidence": 0.3521221876761777
-    }
-  ],
-  "entities": [
-    {
-      "entity": "sys-date",
-      "location": [
-        0,
-        7
-      ],
-      "value": "2016-12-09",
-      "metadata": {
-        "calendar_type": "GREGORIAN"
-      }
-    },
-    {
-      "entity": "sys-time",
-      "location": [
-        0,
-        7
-      ],
-      "value": "18:00:00",
-      "metadata": {
-        "calendar_type": "GREGORIAN"
-      }
-    }
-  ],
-  "input": {
-    "text": "tonight"
-  },
-  "output": {
-    "log_messages": [],
-    "text": [],
-    "nodes_visited": [
-      "node_4_1481308591294"
-    ]
-  },
-  "context": {
-    "conversation_id": "6f4f9f93-36a0-41f8-93d6-8bd72c98e7ab",
-    "system": {
-      "dialog_stack": [
-        "node_4_1481308591294"
-      ],
-      "dialog_turn_counter": 3,
-      "dialog_request_counter": 3
-    },
-    "departure": "BOS"
-  }
-}
-"""
+myLogger = pixiedust.getLogger(__name__)
 
-def getResponse(input_message):
-    if input_message == None:
-        input_message = ""
-    return conversation_v1.message(workspace_id, input_message)
+def getResponse(payload):
+    conversation = ConversationV1(
+        username='ed760194-a00a-4449-a52b-c4c185dda8fd',
+        password='aG1eCCGeQirb',
+        version='2016-09-20')
 
-def getResponseTest():
-    global json
-    return json
+    workspace_id = "b46837f1-31bd-4e37-9551-104c44b7e46c"
+
+    myLogger.info(payload)
+    result = json.dumps(conversation.message(workspace_id=workspace_id, message_input=payload['input'],
+                                             context=payload['context']))
+    myLogger.info(result)
+    return result
