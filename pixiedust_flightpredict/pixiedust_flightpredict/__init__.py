@@ -35,7 +35,7 @@ class PixieDustConvFlightPredictPluginMeta(DisplayHandlerMeta):
   def getMenuInfo(self,entity):
     if entity==self.__class__:
       menus = [{"id": "convflightpredict"}]
-    else
+    else:
       menus = []
 
     return menus
