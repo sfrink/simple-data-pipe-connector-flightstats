@@ -17,6 +17,4 @@ from pixiedust.display.display import *
 
 class PixieDustFlightPredict(Display):
   def doRender(self, handlerId):
-    # create new html files
-    self._addHTMLTemplate("flightsScript.html", initialAirport=initialAirport)
-    self._addHTMLTemplate("flights.html", initialAirport=initialAirport)
+    self._addHTMLTemplate("convFlights.html")
