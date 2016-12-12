@@ -1,0 +1,14 @@
+<select id="selectedFlight" onchange="window.fragmentSubmit('selectedFlight')">
+    {% for flight in flights %}
+    <option value="{{flight['flightNumber']}}">{{flight['carrierFsCode']}}-{{flight['flightNumber']}} : {{flight['departureTime']}}</option>
+    {% endfor %}
+</select>
+
+<script>
+debugger;
+$("#convoFlights").change(function(){
+    debugger;
+    alert($(this).val);
+})
+</script>
+
