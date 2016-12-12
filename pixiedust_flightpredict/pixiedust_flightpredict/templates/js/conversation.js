@@ -3,6 +3,11 @@
 /* eslint no-unused-vars: "off" */
 /* global Api: true, Common: true*/
 
+window.fragmentSubmit = function(id){
+  node = $("#" + id)
+  console.log("selected node", node);
+  alert(node.val())
+}
 window.ConversationPanel = (function() {
   var settings = {
     selectors: {
@@ -186,6 +191,11 @@ window.ConversationPanel = (function() {
         messageArray.push(Common.buildDomElement(messageJson));
       }
     });
+
+    if(newPayload.output && newPayload.output.html){
+        debugger;
+        messageArray.push(Common.buildDomElement({html : newPayload.output.html}));
+    }
 
     return messageArray;
   }
