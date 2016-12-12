@@ -216,8 +216,8 @@ window.ConversationPanel = (function() {
       if (latestResponse) {
         context = latestResponse.context;
       }
-
       // Send the user message
+      displayMessage({input: {'text' : inputBox.value}}, settings.authorTypes.user);
       Api.sendRequest(inputBox.value, context);
 
       // Clear input box for further messages

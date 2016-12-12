@@ -1,12 +1,12 @@
 # -------------------------------------------------------------------------------
 # Copyright IBM Corp. 2016
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an 'AS IS' BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -65,7 +65,7 @@ class PixieDustFlightPredictPluginMeta(DisplayHandlerMeta):
         {"categoryId": "FlightPredict", "title": "Show Histogram", "icon-path":"vizFeatures.png", "id":"fp_histogram"}
       ]
       if len(Configuration.getModels())>0 and Configuration.getLabeledData(entity) is not None:
-        menus.append( 
+        menus.append(
           {"categoryId": "FlightPredict", "title": "Measure Accuracy", "icon-path":"vizFeatures.png", "id":"fp_run_metrics"}
         )
 
@@ -117,7 +117,7 @@ def displayMapResults():
 def configure():
   display("fp_configure_training")
 
-class Configuration(with_metaclass( 
+class Configuration(with_metaclass(
         type("",(type,),{
             "configDict":{},
             "__getitem__":lambda cls, key: cls.configDict.get(key),
@@ -126,7 +126,7 @@ class Configuration(with_metaclass(
             "__setattr__":lambda cls, key, val: cls.configDict.update({key:val})
         }), object
     )):
-    
+
   @staticmethod
   def update(**kwargs):
     for key,val in iteritems(kwargs):
