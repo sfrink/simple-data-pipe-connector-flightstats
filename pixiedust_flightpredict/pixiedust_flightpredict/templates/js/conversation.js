@@ -5,8 +5,15 @@
 
 window.fragmentSubmit = function(id){
   node = $("#" + id)
-  console.log("selected node", node);
-  alert(node.val())
+  var selected = node.val();
+  var context;
+  var latestResponse = Api.getResponsePayload();
+  if (latestResponse) {
+    context = latestResponse.context;
+  }
+  context = context || {};
+  context.flight_number = selected;
+  Api.sendRequest('', context);
 }
 window.ConversationPanel = (function() {
   var settings = {
@@ -193,7 +200,6 @@ window.ConversationPanel = (function() {
     });
 
     if(newPayload.output && newPayload.output.html){
-        debugger;
         messageArray.push(Common.buildDomElement({html : newPayload.output.html}));
     }
 

@@ -15,6 +15,23 @@ div {
   line-height: 1.25rem;
 }
 
+.modal-content .modal-footer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+.modal .modal-content, .modal .modal-dialog{
+  height: 100%;
+}
+
+.modal .modal-body{
+  position: absolute;
+    top: 20px;
+    bottom: 35px;
+}
+
 #view-change-button {
   display: inline-block;
   position: absolute;
