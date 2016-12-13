@@ -23,6 +23,7 @@ var Api = (function() {
       return responsePayload;
     },
     setResponsePayload: function(newPayloadStr) {
+      debugger;
       responsePayload = JSON.parse(newPayloadStr);
     }
   };

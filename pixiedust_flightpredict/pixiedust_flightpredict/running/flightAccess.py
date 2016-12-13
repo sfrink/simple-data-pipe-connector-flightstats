@@ -189,4 +189,3 @@ def getFlights(airport, date, hour):
     return ret
 
 
-

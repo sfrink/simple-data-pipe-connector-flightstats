@@ -37,7 +37,7 @@ def showFlightList(result):
         return None
 
     context = result["context"]
-    if "departure_date" in context and "destination" in context and "departure" in context and "departure_time" in context and "layover" in context:
+    if "departure_date" in context and "destination" in context and "departure" in context and "departure_time" in context and "layover" in context and "lookedUp" not in context:
         flights = getFlights(context["departure"], context["departure_date"], context["departure_time"])["scheduledFlights"]
         flights = [ f for f in flights if f["arrivalAirportFsCode"] == context["destination"]]
         myLogger.info("flights {0}".format(json.dumps(flights)))
