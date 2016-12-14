@@ -188,4 +188,56 @@ def getFlights(airport, date, hour):
     flightsCache[key]=ret
     return ret
 
+def getFlightsBetweenAirports(deptAirport, arrAirport, date):
+    myLogger.info("getting flights between airports {0} {1} on {2}".format(deptAirport, arrAirport, date))
+    parts=date.split("-")
+    if len(parts)!=3:
+        raise ValueError("Invalid date {0}".format(date))
+
+    (year,month,day) = (parts[0], parts[1], parts[2])
+    #check the cache first
+    key = deptAirport+arrAirport+date
+    if key in flightsCache:
+        return flightsCache[key]
+
+    #/v1/json/from/{departureAirportCode}/to/{arrivalAirportCode}/departing/{year}/{month}/{day}
+    path = "schedules/rest/v1/json/from/{departureAirportCode}/to/{arrivalAirportCode}/departing/{year}/{month}/{day}"
+
+    url = buildUrl(path, departureAirportCode=deptAirport, arrivalAirportCode=arrAirport, year=year,month=month,day=day)
+    myLogger.debug("Calling getFlights with url: " + url)
+    response = requests.get( url )
+    if response.status_code != 200:
+        msg = "Error while trying to get flights for airport {0} at hour {1}. Error is {2}".format(airport, hour, str(response.reason))
+        myLogger.error(msg)
+        raise requests.HTTPError(msg, response=response)
+
+    payload = response.json()
+    if "error" in payload:
+        msg = "Error while trying to get flights for airport {0} at hour {1}. Error is {2}".format(airport, hour, payload['error']['errorMessage'])
+        myLogger.error(msg)
+        raise requests.HTTPError(msg, response = response)
+
+    #convert departuretimes from local to UTC
+    def findAirport(airportCode):
+        for airport in payload['appendix']['airports']:
+            if airport['fs'] == airportCode:
+                return airport
+    for flight in payload['scheduledFlights']:
+        airport = findAirport( flight["departureAirportFsCode"] )
+        if airport is not None:
+            dt = parse(flight["departureTime"])
+            flight["departureTimeUTC"] = str(pytz.timezone(airport['timeZoneRegionName']).localize(dt).astimezone (pytz.utc))
+        else:
+            myLogger.error("Unable to resolve airport code {0} because it is not in the appendix returned by flightstats".format(flight["departureAirportFsCode"]))
+
+    ret = {
+        "scheduledFlights": payload['scheduledFlights'],
+        "airports": payload['appendix']['airports'] if 'airports' in payload['appendix'] else []
+        #"airlines": payload['appendix']['airlines'] if 'airlines' in payload['appendix'] else [],
+        #"equipments": payload['appendix']['equipments'] if 'equipments' in payload['appendix'] else []
+    }
+    myLogger.info("Setting the following as flightStat data: {0}".format(ret))
+    flightsCache[key]=ret
+    return ret
+
 
