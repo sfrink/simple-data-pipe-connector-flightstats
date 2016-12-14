@@ -15,6 +15,40 @@ window.fragmentSubmit = function(id){
   context.flight_number = selected;
   Api.sendRequest('', context);
 }
+
+window.initRightHtml = function(){
+  node = document.getElementById('flightpredict-map');
+  if (node ){
+      themap = new google.maps.Map(node, {
+            zoom: 4,
+            center: new google.maps.LatLng(40, -100),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false
+      });
+
+      n = $("#flightpredict-map");
+
+      var depAirport = new google.maps.LatLng(n.attr("depLatitude"), n.attr("depLongitude"));
+      var arrAirport = new google.maps.LatLng(n.attr("arrLatitude"), n.attr("arrLongitude"));
+      var depAirportMarker = new google.maps.Marker({position: depAirport, map: themap});
+      var arrAirportMarker = new google.maps.Marker({position: arrAirport, map: themap});
+
+      var flightPlanCoordinates = [depAirport,arrAirport];
+      var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        strokeColor: n.attr("predictionOverall") === 'On Time' ? '#00b4a0' : '#a6266e',
+        strokeOpacity: 0.75,
+        strokeWeight: 8
+      });
+        
+      flightPath.setMap(themap);
+      google.maps.event.trigger(themap,'resize');
+  }
+}
+
 window.ConversationPanel = (function() {
   var settings = {
     selectors: {
@@ -58,6 +92,7 @@ window.ConversationPanel = (function() {
       if (payload && payload.output && payload.output.rightHtml) {
         var parent = $('#details_pane');
         parent.html(payload.output.rightHtml);
+        window.initRightHtml();
       }
     };
   }

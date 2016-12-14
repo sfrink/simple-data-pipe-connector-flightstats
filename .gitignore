@@ -43,3 +43,5 @@ lib/python/notebook/metastore_db
 *.pyc
 dist/
 .idea/
+
+notebook/metastore_db
