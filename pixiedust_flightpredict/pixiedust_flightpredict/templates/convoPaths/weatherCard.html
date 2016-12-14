@@ -1,0 +1,73 @@
+<style>
+    
+@import url(https://ibm-cds-labs.github.io/simple-data-pipe-connector-flightstats/css/weather-icons.min.css);
+
+.weather-forecast {
+  padding-left: 20px;
+}
+
+.weather-forecast > div {
+  margin: 0;
+  padding: 15px 0 25px 10px;
+}
+.weather-forecast > div:first-child {
+  border-bottom: 1px solid #c6c6c6;
+}
+.fp-weather-temp {
+  display: inline-block;
+  font-size: 55px;
+  vertical-align: top;
+  width: 26%
+}
+.fp-weather-temp span {
+  font-size: 20px;
+  vertical-align: super;
+}
+.fp-weather-icon {
+  display: inline-block;
+  font-size: 48px;
+  width: 24%
+}
+.fp-weather-info {
+  display: inline-block;
+  margin: 0 10px;
+  width: calc(50% - 30px);
+}
+.fp-weather-info div {
+  font-size: 14px;
+  line-height: 16px;
+}
+.fp-weather-info div:first-child {
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
+
+<div class="weather-forecast-title">
+    <span>{{flight}}</span><span>{{datetime}}</span>
+</div>
+<div class="row weather-forecast collapsible">
+    <div>
+        <div class="fp-weather-temp"> {{departureTemp}} <span>&deg; F</span></div>
+        <div class="fp-weather-info">
+            <div> {{departureCity}} </div>
+            <div> {{depWeather["phrase_22char"]}} </div>
+            <div> {{depWeather["wdir_cardinal"]}} + </div>
+        </div>
+        <div class="fp-weather-icon">
+            <i class="wi {{departureIcon}}"></i>
+        </div>
+    </div>
+    
+    <div>
+        <div class="fp-weather-temp"> {{arrivalTemp}} <span>&deg; F</span></div>
+        <div class="fp-weather-info">
+            <div> {{arrivalCity}}</div>
+            <div> {{arrWeather["phrase_22char"]}} </div>
+            <div> {{arrWeather["wdir_cardinal"]}} </div>
+        </div>
+        <div class="fp-weather-icon">
+            <i class="wi {{arrivalIcon}}"></i>
+        </div>
+    </div>
+</div>
