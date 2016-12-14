@@ -5,7 +5,9 @@ import pixiedust
 import json
 import traceback
 from pixiedust_flightpredict.running.weatherAccess import *
-import pixiedust_flightpredict.configureTraining as p
+from pixiedust_flightpredict.running.runModel import *
+import datetime
+from dateutil.parser import parse
 
 myLogger = pixiedust.getLogger(__name__)
 
@@ -92,7 +94,6 @@ def buildContentFromExternalSource(result):
       'wi-snow', 'wi-snow-wind', 'wi-snow-wind', 'wi-na', 'wi-night-alt-showers', 'wi-night-alt-snow', 'wi-night-alt-thunderstorm']
 
         rightHtml = env.getTemplate("convoPaths/weatherCard.html").render(
-            module = p,
             flight = context["flight_number"],datetime=context["departure_date"] + " at " + context["departure_time"],
             departureCity=context["departure"], arrivalCity=context["destination"],
             depWeather=depWeather, arrWeather = arrWeather,
@@ -102,6 +103,8 @@ def buildContentFromExternalSource(result):
             arrivalTemp=int( float( (arrWeather["temp"] * 1.8) + 32))
         )
 
+        context.pop("check_weather",None)
+
     elif "check_airport_info" in context and "destination" in context: 
         myLogger.info("getting the airport info for {0}".format(context["destination"]))
         rightHtml = "<div> <b>this is the airport info</b></div>"
@@ -110,6 +113,12 @@ def buildContentFromExternalSource(result):
         rightHtml = "<div> <b>this is the flight_number info</b></div>"
     elif "predict_delay" in context: 
         myLogger.info("checking for delay {0}".format(context["destination"]))
-        rightHtml = "<div> <b>this is the delay info</b></div>"
+        t = (parse(context["departure_date"]) - datetime.datetime(1970,1,1)).total_seconds() * 1000
+        prediction = runModel(context["flight_number"].replace("-", " "), t, departureAirport=context["departure"])
+        jprediction = json.loads(prediction)
+        rightHtml = env.getTemplate("convoPaths/flightDelayPrediction.html").render(
+            models = jprediction["prediction"]["models"],
+            prediction = jprediction
+        )
     return html, rightHtml
     
