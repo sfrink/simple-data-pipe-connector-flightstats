@@ -1,6 +1,10 @@
-<select id="selectedFlight" onchange="window.fragmentSubmit('selectedFlight')">
+<div class="from-watson">
+<p>
+<select class="flight-picker" id="selectedFlight" onchange="window.fragmentSubmit('selectedFlight')">
     {% for flight in flights %}
     <option value="{{flight['carrierFsCode']}}-{{flight['flightNumber']}}">{{flight['carrierFsCode']}}-{{flight['flightNumber']}} : {{flight['departureTime']}}</option>
     {% endfor %}
 </select>
+</p>
+</div>
 

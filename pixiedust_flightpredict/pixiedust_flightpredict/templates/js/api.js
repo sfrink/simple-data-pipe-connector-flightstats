@@ -23,7 +23,6 @@ var Api = (function() {
       return responsePayload;
     },
     setResponsePayload: function(newPayloadStr) {
-      debugger;
       responsePayload = JSON.parse(newPayloadStr);
     }
   };
@@ -49,6 +48,7 @@ var Api = (function() {
         alert('error!');
       {% else %}
         {% if results != '' %}
+          debugger;
           Api.setResponsePayload({{results}});
         {% endif %}
       {% endif %}

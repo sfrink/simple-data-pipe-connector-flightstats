@@ -53,7 +53,12 @@ window.ConversationPanel = (function() {
     var currentResponsePayloadSetter = Api.setResponsePayload;
     Api.setResponsePayload = function(newPayloadStr) {
       currentResponsePayloadSetter.call(Api, newPayloadStr);
-      displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.watson);
+      var payload = JSON.parse(newPayloadStr);
+      displayMessage(payload, settings.authorTypes.watson);
+      if (payload && payload.output && payload.output.rightHtml) {
+        var parent = $('#details_pane');
+        parent.html(payload.output.rightHtml);
+      }
     };
   }
 
