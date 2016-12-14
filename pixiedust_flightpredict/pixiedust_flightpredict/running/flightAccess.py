@@ -213,7 +213,7 @@ def getFlightsBetweenAirports(deptAirport, arrAirport, date):
 
     payload = response.json()
     if "error" in payload:
-        msg = "Error while trying to get flights for airport {0} at hour {1}. Error is {2}".format(airport, hour, payload['error']['errorMessage'])
+        msg = "Error while trying to get flights from airport {0} to airport {1}. Error is {2}".format(deptAirport, arrAirport, payload['error']['errorMessage'])
         myLogger.error(msg)
         raise requests.HTTPError(msg, response = response)
 
