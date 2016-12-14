@@ -44,11 +44,38 @@ div {
   height: 2em;
 }
 
-.weather-forecast {
+.ontime{
+  color: #00B4A0;
+  font-weight: 400;
+}
+.delayed{
+  color: red;
+  font-weight: 500;
+}
+
+.map-parent{
+  height: calc(70vh - 50px);
+  overflow: hidden;
+  position: relative;
+  padding-left: 20px;
+}
+.weather-forecast, .predict-models {
   padding-left: 20px;
   padding-top: 10px;
   width: 50%;
   float: right;
+}
+.predict-models-parent{
+
+}
+.predict-model-label{
+  font-weight: 500;
+  font-style: italic;
+  width: 160px;
+  display: inline-block;
+}
+.predict-models{
+  float: none;
 }
 
 .weather-forecast > div {
