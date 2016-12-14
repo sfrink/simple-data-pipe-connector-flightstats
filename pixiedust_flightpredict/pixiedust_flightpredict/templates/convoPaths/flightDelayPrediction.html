@@ -1,0 +1,15 @@
+{%for model in models%}
+    <div>
+        <span> {{model['model']}} </span>
+        <span class="{{'ontime' if model['prediction'] == 'On Time' else 'delayed'}}">{{model['prediction']}}</span>
+    </div>
+{%endfor%}
+
+<div id="flightpredict-map" style="height: calc(70vh - 60px);" 
+    depLatitude="{{prediction["departureAirportInfo"]["airportInfo"]["latitude"]}}"
+    depLongitude="{{prediction["departureAirportInfo"]["airportInfo"]["longitude"]}}"
+    arrLatitude="{{prediction["arrivalAirportInfo"]["airportInfo"]["latitude"]}}"
+    arrLongitude="{{prediction["arrivalAirportInfo"]["airportInfo"]["longitude"]}}"
+    predictionOverall="{{prediction["overall"]}}"
+>
+</div>
