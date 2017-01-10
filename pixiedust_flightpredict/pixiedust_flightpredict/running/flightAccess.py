@@ -27,8 +27,8 @@ myLogger=pixiedust.getLogger(__name__)
 flexBaseUrl = "https://api.flightstats.com/flex/"
 
 def buildUrl(path, **kwargs):
-    appId=os.environ.get("appId") or Configuration["appId"]
-    appKey=os.environ.get("appKey") or Configuration["appKey"]
+    appId= Configuration["appId"]  or os.environ.get("appId")
+    appKey= Configuration["appKey"] or os.environ.get("appKey")
 
     if appId is None or appKey is None:
         raise ValueError("appId or appKey is not defined")
