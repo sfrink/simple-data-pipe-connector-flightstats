@@ -1,3 +1,5 @@
+@import url(https://ibm-cds-labs.github.io/simple-data-pipe-connector-flightstats/css/weather-icons.min.css);
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -40,6 +42,80 @@ div {
 
 .flight-picker{
   height: 2em;
+}
+
+.ontime{
+  color: #00B4A0;
+  font-weight: 400;
+}
+.delayed{
+  color: red;
+  font-weight: 500;
+}
+
+.map-parent{
+  height: calc(70vh - 50px);
+  overflow: hidden;
+  position: relative;
+  padding-left: 20px;
+}
+.weather-forecast, .predict-models {
+  padding-left: 20px;
+  padding-top: 10px;
+  width: 50%;
+  float: right;
+}
+.predict-models-parent{
+
+}
+.predict-model-label{
+  font-weight: 500;
+  font-style: italic;
+  width: 160px;
+  display: inline-block;
+}
+.predict-models{
+  float: none;
+}
+
+.weather-forecast > div {
+  margin: 0;
+  padding: 15px 0 25px 10px;
+}
+.weather-forecast > div:first-child {
+  border-bottom: 1px solid #c6c6c6;
+}
+.fp-weather-temp {
+  display: inline-block;
+  font-size: 55px;
+  vertical-align: top;
+  width: 26%
+}
+.fp-weather-temp span {
+  font-size: 20px;
+  vertical-align: super;
+}
+.fp-weather-icon {
+  display: inline-block;
+  font-size: 48px;
+  width: 24%
+}
+.fp-weather-info {
+  display: inline-block;
+  margin: 0 10px;
+  width: calc(50% - 30px);
+}
+.fp-weather-info div {
+  font-size: 14px;
+  line-height: 16px;
+}
+.fp-weather-info div:first-child {
+  font-size: 16px;
+  font-weight: bold;
+}
+.weather-forecast-title{
+  font-size: 20px;
+  padding-left: 20px;
 }
 
 #view-change-button {
