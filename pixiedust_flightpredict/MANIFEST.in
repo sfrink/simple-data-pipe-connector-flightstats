@@ -1,2 +1,7 @@
 recursive-include pixiedust_flightpredict templates/*
+recursive-include pixiedust_flightpredict templates/*/*
 recursive-include pixiedust_flightpredict gencode/*
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc
+recursive-exclude * *.pyo
+recursive-exclude * *.orig
